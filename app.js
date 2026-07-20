@@ -98,6 +98,7 @@ function filteredQuestions(){
   const type=$("typeSelect").value;
   const subject=$("subjectSelect").value;
   const review=$("reviewSelect").value;
+  const source=$("sourceSelect").value;
   const keyword=$("keywordInput").value.trim().toLowerCase();
   const favorites=getFavorites();
   const wrong=new Set(JSON.parse(localStorage.getItem("sharoshi-wrong")||"[]"));
@@ -110,6 +111,7 @@ function filteredQuestions(){
     ].filter(Boolean).join(" ").toLowerCase();
     return (type==="all"||q.type===type)&&
       (subject==="all"||q.subject===subject)&&
+      (source==="all"||q.sourceCategory===source)&&
       (!keyword||searchable.includes(keyword))&&
       (review==="all"||review==="weak"||
        (review==="favorite"&&favorites.has(q.id))||
