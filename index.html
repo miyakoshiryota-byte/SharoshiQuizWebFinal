@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="社労士">
+  <meta name="format-detection" content="telephone=no">
+  <title>社労士 一問一答</title>
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+  <section id="home" class="screen active">
+    <header class="topbar">
+      <p class="eyebrow">SHAROSHI QUIZ</p>
+      <h1>社労士 一問一答</h1>
+      <p id="questionCount" class="question-count" data-question-count>収録問題を読み込み中…</p>
+    </header>
+
+    <div class="card">
+      <label>出題形式</label>
+      <select id="typeSelect">
+        <option value="all">すべて</option>
+        <option value="trueFalse">択一式</option>
+        <option value="fillBlank">選択式</option>
+      </select>
+
+      <label>科目</label>
+      <select id="subjectSelect"></select>
+
+      <label>キーワード検索</label>
+      <input id="keywordInput" type="search" placeholder="例：年次有給休暇、36協定、傷病手当金">
+
+      <label>学習モード</label>
+      <select id="modeSelect">
+        <option value="practice">通常演習</option>
+        <option value="mock">模擬試験</option>
+      </select>
+
+      <label>出題数</label>
+      <select id="countSelect">
+        <option value="10">10問</option>
+        <option value="20">20問</option>
+        <option value="50">50問</option>
+        <option value="all">すべて</option>
+      </select>
+
+      <div id="mockSettings" class="mock-settings hidden">
+        <label>制限時間</label>
+        <select id="timeLimitSelect">
+          <option value="10">10分</option>
+          <option value="20">20分</option>
+          <option value="30" selected>30分</option>
+          <option value="60">60分</option>
+        </select>
+        <p class="helper-text">模擬試験では回答直後の正誤・解説を表示せず、終了時にまとめて確認します。</p>
+      </div>
+
+      <label>復習フィルター</label>
+      <select id="reviewSelect">
+        <option value="all">指定なし</option>
+        <option value="wrong">間違えた問題だけ</option>
+        <option value="favorite">お気に入りだけ</option>
+        <option value="weak">苦手問題を優先</option>
+      </select>
+
+      <label class="switch-row">
+        <span>ランダム出題</span>
+        <input id="shuffleToggle" type="checkbox" checked>
+      </label>
+
+      <button id="startButton" class="primary">すぐ始める</button>
+      <button id="selectionDemoButton" class="secondary">選択式を試す</button>
+      <button id="resumeButton" class="secondary hidden">前回の続き</button>
+
+      <div class="data-actions">
+        <button id="exportButton" class="text-action">学習データを書き出す</button>
+        <label class="text-action file-label">
+          学習データを読み込む
+          <input id="importInput" type="file" accept="application/json,.json">
+        </label>
+      </div>
+    </div>
+
+    <div class="mini-stats">
+      <div><strong id="todayCount">0</strong><span>今日</span></div>
+      <div><strong id="totalCount">0</strong><span>累計</span></div>
+      <div><strong id="accuracy">–</strong><span>正答率</span></div>
+    </div>
+
+    <section class="history-card">
+      <div class="section-title-row">
+        <div>
+          <p class="eyebrow">LEARNING HISTORY</p>
+          <h2>科目別の学習状況</h2>
+        </div>
+        <button id="resetHistoryButton" class="text-button">履歴をリセット</button>
+      </div>
+      <div id="subjectStats" class="subject-stats">
+        <p class="empty-message">まだ解答履歴がありません。</p>
+      </div>
+    </section>
+  </section>
+
+  <section id="quiz" class="screen">
+    <header class="quiz-header">
+      <button id="closeQuiz" class="icon-button">×</button>
+      <div>
+        <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="quiz-status-line">
+          <span id="progressText" class="progress-text"></span>
+          <span id="timerText" class="timer-text hidden"></span>
+        </div>
+      </div>
+      <button id="favoriteButton" class="icon-button">☆</button>
+    </header>
+
+    <article class="question-area">
+      <div class="meta">
+        <span id="subjectLabel"></span>
+        <span id="chapterLabel"></span>
+      </div>
+
+      <div id="trueFalseArea">
+        <p id="questionText" class="question-text"></p>
+      </div>
+
+      <div id="fillBlankArea" class="hidden">
+        <p class="selection-guide">空欄をタップし、下の選択肢から答えを選んでください。</p>
+        <div id="passageArea" class="passage-area"></div>
+        <div id="blankNavigator" class="blank-navigator"></div>
+        <div id="optionArea" class="option-area"></div>
+        <button id="gradeSelectionButton" class="primary grade-button">採点する</button>
+      </div>
+
+      <div id="answerPanel" class="answer-panel hidden">
+        <div id="resultBadge" class="result-badge"></div>
+        <div id="explanationText"></div>
+      </div>
+    </article>
+
+    <footer id="trueFalseActions" class="answer-actions">
+      <button id="falseButton" class="answer-button false">×</button>
+      <button id="trueButton" class="answer-button true">○</button>
+      <button id="nextButton" class="primary hidden">次の問題</button>
+    </footer>
+  </section>
+
+  <section id="result" class="screen">
+    <div class="result-card">
+      <p class="eyebrow">RESULT</p>
+      <h2>終了</h2>
+      <div id="scoreCircle" class="score-circle">0%</div>
+      <p id="scoreDetail"></p>
+      <div id="mockReview" class="mock-review hidden"></div>
+      <button id="retryWrongButton" class="primary hidden">間違えた問題だけ</button>
+      <button id="backHomeButton" class="secondary">ホームへ</button>
+    </div>
+  </section>
+</main>
+<script src="questions-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
