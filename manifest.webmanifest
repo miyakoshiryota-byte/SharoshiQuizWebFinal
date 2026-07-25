@@ -1,11 +1,11 @@
 {
-  "name": "社労士 一問一答",
+  "name": "社労士 一問一答 v3.2",
   "short_name": "社労士",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#087f5b",
   "lang": "ja",
   "icons": [
     {
