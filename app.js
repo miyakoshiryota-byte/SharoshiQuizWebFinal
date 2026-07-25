@@ -1,3 +1,4 @@
+const APP_VERSION="4.0";
 const state={
   allQuestions:[],session:[],index:0,correct:0,wrongIds:[],answered:false,
   activeBlank:null,selectionAnswers:{},selectionOptions:[],
@@ -21,7 +22,7 @@ function getStats(){
   return JSON.parse(localStorage.getItem("sharoshi-stats")||'{"total":0,"correct":0,"today":0,"date":"","subjects":{},"questions":{}}');
 }
 function saveStats(ok,q){
-  const d=new Date().toISOString().slice(0,10),s=getStats();
+  const d=new Intl.DateTimeFormat("sv-SE",{timeZone:"Asia/Tokyo"}).format(new Date()),s=getStats();
   if(s.date!==d){s.date=d;s.today=0}
   s.subjects=s.subjects||{};
   s.questions=s.questions||{};
@@ -144,6 +145,8 @@ function renderQuestion(){
   state.answered=false;
   $("subjectLabel").textContent=q.subject;
   $("chapterLabel").textContent=q.type==="fillBlank"?"選択式":(q.chapter||"");
+  const sourceLabel=document.getElementById("sourceLabel");
+  if(sourceLabel) sourceLabel.textContent=q.source||"";
   $("answerPanel").classList.add("hidden");
   $("nextButton").classList.add("hidden");
   $("mockReview").classList.add("hidden");
@@ -353,7 +356,7 @@ function stopTimer(){
 }
 function exportLearningData(){
   const data={
-    app:"SharoshiQuizWeb",version:"1.0",exportedAt:new Date().toISOString(),
+    app:"SharoshiQuizWeb",version:APP_VERSION,exportedAt:new Date().toISOString(),
     stats:JSON.parse(localStorage.getItem("sharoshi-stats")||"null"),
     wrong:JSON.parse(localStorage.getItem("sharoshi-wrong")||"[]"),
     favorites:JSON.parse(localStorage.getItem("sharoshi-favorites")||"[]")
@@ -415,7 +418,7 @@ async function init(){
     state.allQuestions=window.SHAROSHI_QUESTIONS;
   }else{
     // 開発用サーバーで起動した場合の予備読み込み。
-    const response=await fetch("questions.json?v=142",{cache:"no-store"});
+    const response=await fetch("questions.json?v=40",{cache:"no-store"});
     if(!response.ok)throw new Error("question data load failed");
     state.allQuestions=await response.json();
   }
@@ -458,6 +461,6 @@ $("resetHistoryButton").onclick=()=>{
 };
 
 if("serviceWorker"in navigator&&location.protocol.startsWith("http")){
-  navigator.serviceWorker.register("sw.js").catch(()=>{});
+  navigator.serviceWorker.register("sw.js?v=40",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{});
 }
 init().catch(()=>alert("問題データの読み込みに失敗しました。READMEを確認してください。"));

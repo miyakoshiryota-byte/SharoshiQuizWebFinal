@@ -1,0 +1,61 @@
+{
+  "version": "4.0 FINAL",
+  "total": 3899,
+  "trueFalse": 3732,
+  "fillBlank": 167,
+  "whitepaperStatistics": 235,
+  "duplicateIds": 0,
+  "controlCharacterItems": [],
+  "countChoiceArtifacts": [],
+  "serviceWorkerFilesExist": true,
+  "files": {
+    "AUDIT_REPORT.json": {
+      "bytes": 19325,
+      "sha256": "620f7c3efba022f4d7fd28a7ef1ee289a55ac94778a820ccc464249d40d12124"
+    },
+    "README.md": {
+      "bytes": 319,
+      "sha256": "d3d65e5a68808aee70150c1898fbc0c5a255978ec92d5a0fbe4b114a8bc41713"
+    },
+    "README_iPhone.md": {
+      "bytes": 1246,
+      "sha256": "c0b455eafc3c2495ea2c36f643906ea6fa44942ea51a176ec14008e522cdd6e4"
+    },
+    "app.js": {
+      "bytes": 18380,
+      "sha256": "825dfa3473b235378a07780fc301d2ef9287fa4935194932a21f4bd66487f12e"
+    },
+    "icon-180.png": {
+      "bytes": 1918,
+      "sha256": "beed1e92e9bd640c39ac6f0409599a5830960150ef11a14f9e6239f7e06ce9dd"
+    },
+    "icon-512.png": {
+      "bytes": 6444,
+      "sha256": "6fda528c13b4bd9c197c798e01159a1ff464dc253fa88f7b2a232aa8988442bd"
+    },
+    "index.html": {
+      "bytes": 7099,
+      "sha256": "ff276d13901f06ce56499db61e28b0f387ec2f726758f6a1099bb70c872be0cd"
+    },
+    "manifest.webmanifest": {
+      "bytes": 457,
+      "sha256": "142367a3388b409b83ca3ce5a1ccc3a0760dbbd97d021235f4f6cb1ec8d97914"
+    },
+    "questions-data.js": {
+      "bytes": 5085237,
+      "sha256": "910b850068788632f8580cf5f8be52fbc77ba02b552bdc81ee2918f9f894e5f3"
+    },
+    "questions.json": {
+      "bytes": 5085207,
+      "sha256": "898591422c7680ea87e3027fd0d7db995ea9eec41276cb3f48a8fc1f9c7bb009"
+    },
+    "style.css": {
+      "bytes": 11332,
+      "sha256": "3a799b820c1e3fc27ca519de6c3a1c04aaf08bccdb90667608d4cc52a2148f1e"
+    },
+    "sw.js": {
+      "bytes": 1035,
+      "sha256": "8d461aca6d04f8357b766a9a0e04123721011d8a110863cb5a152da2dc145e47"
+    }
+  }
+}

@@ -121,3 +121,40 @@ select,input,button{color:var(--text);}
   .secondary{background:#e9e9ee;color:#111827;}
   .icon-button{background:#1c1c1e;color:#fff;}
 }
+
+
+/* v4.0 FINAL — green identity and mobile polish */
+:root{
+  --accent:#0b6b3a;
+  --accent-strong:#07522d;
+  --accent-soft:#e9f7ef;
+  --correct:#168a48;
+  --wrong:#d2352f;
+}
+.brand-row{display:flex;align-items:center;gap:14px}
+.brand-icon{width:58px;height:58px;border-radius:17px;box-shadow:0 8px 22px rgba(11,107,58,.22)}
+.version-badge{display:inline-flex;margin-top:7px;padding:4px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong);font-size:11px;font-weight:900;letter-spacing:.04em}
+.topbar{position:relative;overflow:hidden}
+.topbar:after{content:"";position:absolute;right:-45px;bottom:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(40,167,105,.14),rgba(40,167,105,0) 70%);pointer-events:none}
+.primary{background:linear-gradient(135deg,var(--accent),var(--accent-strong));box-shadow:0 8px 20px rgba(11,107,58,.18)}
+.primary:active,.answer-button:active{transform:scale(.985)}
+.progress-bar,.stat-fill{background:linear-gradient(90deg,#20a35b,var(--accent))}
+.card,.history-card,.result-card{border:1px solid #e1eee7;box-shadow:0 12px 34px rgba(11,107,58,.08)}
+select:focus,input[type="search"]:focus{outline:3px solid rgba(11,107,58,.13);border-color:var(--accent)}
+.inline-blank{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
+.inline-blank.active{outline-color:rgba(11,107,58,.17)}
+.blank-chip.active,.option-button.selected{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
+.icon-button{background:#123b28;color:#fff;box-shadow:0 5px 14px rgba(0,0,0,.12)}
+.meta{flex-wrap:wrap}
+.meta span{background:#f2f7f4;color:#4b6356}
+.meta .source-label{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.answer-panel{font-size:clamp(15px,2.8vw,18px);line-height:1.72}
+.question-area{justify-content:flex-start;padding-top:clamp(70px,17vh,210px)}
+.answer-actions{position:sticky;bottom:max(10px,env(safe-area-inset-bottom));padding-top:10px;background:linear-gradient(transparent,#fff 18%)}
+@media(max-width:540px){
+  .screen{padding-left:16px;padding-right:16px}
+  .question-text{font-size:clamp(23px,6.5vw,31px);line-height:1.55}
+  .question-area{padding-top:62px}
+  .answer-button{min-height:86px}
+  .source-label{display:none}
+}

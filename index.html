@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0b6b3a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="社労士">
   <meta name="format-detection" content="telephone=no">
-  <title>社労士 一問一答</title>
-  <link rel="apple-touch-icon" href="icon-180.png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style.css?v=32">
+  <title>社労士 一問一答 v4.0</title>
+  <link rel="apple-touch-icon" href="icon-180.png?v=40">
+  <link rel="manifest" href="manifest.webmanifest?v=40">
+  <link rel="stylesheet" href="style.css?v=40">
 </head>
 <body>
 <main id="app">
   <section id="home" class="screen active">
     <header class="topbar">
       <p class="eyebrow">SHAROSHI QUIZ</p>
-      <h1>社労士 一問一答</h1>
+      <div class="brand-row"><img class="brand-icon" src="icon-180.png?v=40" alt=""><div><h1>社労士 一問一答</h1><span class="version-badge">完成版 v4.0</span></div></div>
       <p id="questionCount" class="question-count" data-question-count>収録問題を読み込み中…</p>
     </header>
 
@@ -38,7 +38,8 @@
         <option value="all">すべて</option>
         <option value="past">過去問</option>
         <option value="prediction">予想問題集</option>
-        <option value="lastMinute">直前対策</option>
+        <option value="lastMinute">直前対策（択一・選択）</option>
+        <option value="whitepaperStatistics">白書・統計対策</option>
         <option value="mock">模擬試験</option>
       </select>
 
@@ -133,6 +134,7 @@
       <div class="meta">
         <span id="subjectLabel"></span>
         <span id="chapterLabel"></span>
+        <span id="sourceLabel" class="source-label"></span>
       </div>
 
       <div id="trueFalseArea">
@@ -172,7 +174,7 @@
     </div>
   </section>
 </main>
-<script src="questions-data.js?v=32"></script>
-<script src="app.js?v=32"></script>
+<script src="questions-data.js?v=40"></script>
+<script src="app.js?v=40"></script>
 </body>
 </html>
