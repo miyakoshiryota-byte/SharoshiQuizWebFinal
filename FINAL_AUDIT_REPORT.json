@@ -1,61 +1,787 @@
 {
-  "version": "4.0 FINAL",
-  "total": 3899,
+  "version": "5.0 FINAL",
+  "totalQuestions": 3899,
   "trueFalse": 3732,
   "fillBlank": 167,
-  "whitepaperStatistics": 235,
-  "duplicateIds": 0,
-  "controlCharacterItems": [],
-  "countChoiceArtifacts": [],
-  "serviceWorkerFilesExist": true,
-  "files": {
-    "AUDIT_REPORT.json": {
-      "bytes": 19325,
-      "sha256": "620f7c3efba022f4d7fd28a7ef1ee289a55ac94778a820ccc464249d40d12124"
+  "answerCorrections": 129,
+  "corrections": [
+    {
+      "id": "past-rouki-43-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "README.md": {
-      "bytes": 319,
-      "sha256": "d3d65e5a68808aee70150c1898fbc0c5a255978ec92d5a0fbe4b114a8bc41713"
+    {
+      "id": "past-rouki-43-b",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
     },
-    "README_iPhone.md": {
-      "bytes": 1246,
-      "sha256": "c0b455eafc3c2495ea2c36f643906ea6fa44942ea51a176ec14008e522cdd6e4"
+    {
+      "id": "past-rouki-43-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "app.js": {
-      "bytes": 18380,
-      "sha256": "825dfa3473b235378a07780fc301d2ef9287fa4935194932a21f4bd66487f12e"
+    {
+      "id": "past-rouki-43-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "icon-180.png": {
-      "bytes": 1918,
-      "sha256": "beed1e92e9bd640c39ac6f0409599a5830960150ef11a14f9e6239f7e06ce9dd"
+    {
+      "id": "past-rouki-46-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "icon-512.png": {
-      "bytes": 6444,
-      "sha256": "6fda528c13b4bd9c197c798e01159a1ff464dc253fa88f7b2a232aa8988442bd"
+    {
+      "id": "past-rouki-46-b",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
     },
-    "index.html": {
-      "bytes": 7099,
-      "sha256": "ff276d13901f06ce56499db61e28b0f387ec2f726758f6a1099bb70c872be0cd"
+    {
+      "id": "past-rouki-46-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "manifest.webmanifest": {
-      "bytes": 457,
-      "sha256": "142367a3388b409b83ca3ce5a1ccc3a0760dbbd97d021235f4f6cb1ec8d97914"
+    {
+      "id": "past-rouki-46-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "questions-data.js": {
-      "bytes": 5085237,
-      "sha256": "910b850068788632f8580cf5f8be52fbc77ba02b552bdc81ee2918f9f894e5f3"
+    {
+      "id": "past-rouki-48-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "questions.json": {
-      "bytes": 5085207,
-      "sha256": "898591422c7680ea87e3027fd0d7db995ea9eec41276cb3f48a8fc1f9c7bb009"
+    {
+      "id": "past-rouki-48-c",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
     },
-    "style.css": {
-      "bytes": 11332,
-      "sha256": "3a799b820c1e3fc27ca519de6c3a1c04aaf08bccdb90667608d4cc52a2148f1e"
+    {
+      "id": "past-rouki-51-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
     },
-    "sw.js": {
-      "bytes": 1035,
-      "sha256": "8d461aca6d04f8357b766a9a0e04123721011d8a110863cb5a152da2dc145e47"
+    {
+      "id": "past-rouki-51-b",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-51-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-51-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-54-b",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-54-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-62-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-62-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-64-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-64-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-93-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-93-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-111-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-111-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-2-5-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-4-3-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-4-6-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-5-1-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-6-2-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-6-4-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-9-3-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-1-1-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-1-1-e",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-1-2-e",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-3-2-c",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-3-7-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-3-7-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-3-7-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-1-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-1-b",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-1-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-2-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-2-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-3-d",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-3-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-4-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-4-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-5-2-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-5-2-d",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-5-2-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-6-2-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-6-2-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-7-5-d",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-7-5-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-7-6-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-7-6-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-7-6-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-10-2-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-10-2-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-10-2-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-10-3-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-10-3-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-koyou-9_2-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-choushu-6_2-c",
+      "old": true,
+      "new": false,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-choushu-6_2-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kenpo-1_3-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kenpo-4_8-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kenpo-11_13-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-4_3-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-4_5-o",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-4_7-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-4_8-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-5_5-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-5_6-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouichi-5_7-u",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-shaichi-6_4-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-10_1-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-10_2-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-15_12-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-15_14-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-15_15-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-15_16-i",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-1_1-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-4_2-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-4_3-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-4_3-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-9_1-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-9_8-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-9_9-i",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-14_11-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kokunen-14_11-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-1_1-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-1_2-i",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-1_6-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-2_8-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-4_4-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-4_6-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-4_9-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-6_1-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-6_6-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-labor-6_8-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-social-1_10-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-social-2_8-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-social-3_7-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-social-3_10-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "pred-social-4_1-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-2_5-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-2_5-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-3_5-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-4_1-b",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-4_5-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-4_6-i",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-4_6-u",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-4_6-e",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-6_10-d",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-7_2-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-7_3-a",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-7_3-o",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-7_7-c",
+      "old": false,
+      "new": true,
+      "reason": "解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-43-d",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-rouki-93-b",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-3-b",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-4-3-c",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-5-2-b",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-6-2-d",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-anei-10-3-a",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "past-kounen-9_1-b",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-7_1-d",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
+    },
+    {
+      "id": "repro57-8_9-e",
+      "old": false,
+      "new": true,
+      "reason": "正規化後に検出した解説の明示的結論と整合"
     }
-  }
+  ],
+  "duplicateIds": [],
+  "remainingExplicitContradictions": [],
+  "remainingReplacementCharacters": [],
+  "auditMethod": "全択一問題について、解説中の「誤りです」「記述のとおり」「正しいです」等の明示的結論を優先順位付きで照合。全テキストに対してPDF抽出由来の分かち書き、制御文字、置換文字、末尾ページ番号を正規化。"
 }

@@ -158,3 +158,13 @@ select:focus,input[type="search"]:focus{outline:3px solid rgba(11,107,58,.13);bo
   .answer-button{min-height:86px}
   .source-label{display:none}
 }
+
+/* v5.0 FINAL */
+.source-filter-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.source-filter-head label{margin:0}
+.mini-action{border:0;background:transparent;color:var(--accent);font-size:12px;font-weight:800;padding:4px 6px;cursor:pointer}
+.source-filter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.source-filter label{margin:0;display:flex;align-items:center;gap:8px;padding:11px 12px;border:1px solid #dce9e1;border-radius:13px;background:#f7fbf8;color:#274b37;font-size:13px;cursor:pointer}
+.source-filter input{accent-color:var(--accent);width:18px;height:18px;margin:0}
+.source-filter label:has(input:checked){border-color:#8bc6a5;background:#eaf7ef;color:#07522d}
+@media(max-width:430px){.source-filter{grid-template-columns:1fr}.source-filter-head{align-items:flex-start;flex-direction:column}}

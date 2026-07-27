@@ -8,17 +8,17 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="社労士">
   <meta name="format-detection" content="telephone=no">
-  <title>社労士 一問一答 v4.0</title>
-  <link rel="apple-touch-icon" href="icon-180.png?v=40">
-  <link rel="manifest" href="manifest.webmanifest?v=40">
-  <link rel="stylesheet" href="style.css?v=40">
+  <title>社労士 一問一答 v5.0</title>
+  <link rel="apple-touch-icon" href="icon-180.png?v=50">
+  <link rel="manifest" href="manifest.webmanifest?v=50">
+  <link rel="stylesheet" href="style.css?v=50">
 </head>
 <body>
 <main id="app">
   <section id="home" class="screen active">
     <header class="topbar">
       <p class="eyebrow">SHAROSHI QUIZ</p>
-      <div class="brand-row"><img class="brand-icon" src="icon-180.png?v=40" alt=""><div><h1>社労士 一問一答</h1><span class="version-badge">完成版 v4.0</span></div></div>
+      <div class="brand-row"><img class="brand-icon" src="icon-180.png?v=50" alt=""><div><h1>社労士 一問一答</h1><span class="version-badge">完成版 v5.0</span></div></div>
       <p id="questionCount" class="question-count" data-question-count>収録問題を読み込み中…</p>
     </header>
 
@@ -33,15 +33,17 @@
       <label>科目</label>
       <select id="subjectSelect"></select>
 
-      <label>出題元</label>
-      <select id="sourceSelect">
-        <option value="all">すべて</option>
-        <option value="past">過去問</option>
-        <option value="prediction">予想問題集</option>
-        <option value="lastMinute">直前対策（択一・選択）</option>
-        <option value="whitepaperStatistics">白書・統計対策</option>
-        <option value="mock">模擬試験</option>
-      </select>
+      <div class="source-filter-head">
+        <label>出題元（複数選択可）</label>
+        <div><button type="button" id="sourceAllButton" class="mini-action">すべて選択</button><button type="button" id="sourceNoneButton" class="mini-action">すべて解除</button></div>
+      </div>
+      <div id="sourceFilter" class="source-filter" aria-label="出題元フィルター">
+        <label><input type="checkbox" name="sourceCategory" value="past" checked><span>過去問</span></label>
+        <label><input type="checkbox" name="sourceCategory" value="prediction" checked><span>予想問題集</span></label>
+        <label><input type="checkbox" name="sourceCategory" value="lastMinute" checked><span>直前対策</span></label>
+        <label><input type="checkbox" name="sourceCategory" value="whitepaperStatistics" checked><span>白書・統計対策</span></label>
+        <label><input type="checkbox" name="sourceCategory" value="mock" checked><span>模擬試験</span></label>
+      </div>
 
       <label>キーワード検索</label>
       <input id="keywordInput" type="search" placeholder="例：年次有給休暇、36協定、傷病手当金">
@@ -85,7 +87,6 @@
       </label>
 
       <button id="startButton" class="primary">すぐ始める</button>
-      <button id="selectionDemoButton" class="secondary">選択式を試す</button>
       <button id="resumeButton" class="secondary hidden">前回の続き</button>
 
       <div class="data-actions">
@@ -174,7 +175,7 @@
     </div>
   </section>
 </main>
-<script src="questions-data.js?v=40"></script>
-<script src="app.js?v=40"></script>
+<script src="questions-data.js?v=50"></script>
+<script src="app.js?v=50"></script>
 </body>
 </html>

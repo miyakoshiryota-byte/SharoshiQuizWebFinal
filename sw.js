@@ -1,8 +1,8 @@
-const CACHE_NAME="sharoshi-v40-final";
+const CACHE_NAME="sharoshi-v50-final";
 const APP_FILES=[
-  "./","./index.html","./style.css?v=40","./app.js?v=40",
-  "./manifest.webmanifest?v=40","./questions-data.js?v=40",
-  "./icon-180.png?v=40","./icon-512.png?v=40"
+  "./","./index.html","./style.css?v=50","./app.js?v=50",
+  "./manifest.webmanifest?v=50","./questions-data.js?v=50",
+  "./icon-180.png?v=50","./icon-512.png?v=50"
 ];
 self.addEventListener("install",event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_FILES)));

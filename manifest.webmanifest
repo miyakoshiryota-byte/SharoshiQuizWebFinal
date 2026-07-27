@@ -1,5 +1,5 @@
 {
-  "name": "社労士 一問一答 完成版 v4.0",
+  "name": "社労士 一問一答 完成版 v5.0",
   "short_name": "社労士",
   "start_url": "./index.html",
   "scope": "./",
@@ -19,5 +19,5 @@
       "type": "image/png"
     }
   ],
-  "id": "./?v=4"
+  "id": "./?v=5"
 }

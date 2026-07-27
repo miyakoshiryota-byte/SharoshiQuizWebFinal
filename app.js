@@ -1,4 +1,4 @@
-const APP_VERSION="4.0";
+const APP_VERSION="5.0";
 const state={
   allQuestions:[],session:[],index:0,correct:0,wrongIds:[],answered:false,
   activeBlank:null,selectionAnswers:{},selectionOptions:[],
@@ -88,18 +88,21 @@ function renderFavorite(){
   $("favoriteButton").textContent=getFavorites().has(q.id)?"★":"☆";
 }
 function buildSubjects(){
-  const s=[...new Set(state.allQuestions.map(q=>q.subject))];
+  const preferred=["労働基準法","労働安全衛生法","労働基準法・労働安全衛生法","労働者災害補償保険法","雇用保険法","労働保険徴収法","健康保険法","国民年金法","厚生年金保険法","労務管理その他の労働に関する一般常識","社会保険に関する一般常識"];
+  const aliases={"労働一般常識":"労務管理その他の労働に関する一般常識","社会保険一般常識":"社会保険に関する一般常識"};
+  state.allQuestions.forEach(q=>{if(aliases[q.subject])q.subject=aliases[q.subject]});
+  const present=[...new Set(state.allQuestions.map(q=>q.subject))];
+  const ordered=[...preferred.filter(x=>present.includes(x)),...present.filter(x=>!preferred.includes(x)).sort((a,b)=>a.localeCompare(b,"ja"))];
   const tf=state.allQuestions.filter(q=>q.type==="trueFalse").length;
   const fb=state.allQuestions.filter(q=>q.type==="fillBlank").length;
   $("questionCount").textContent=`択一式 ${tf}問・選択式 ${fb}問`;
-  $("subjectSelect").innerHTML='<option value="all">全科目</option>'+
-    s.map(x=>`<option value="${x}">${x}</option>`).join("");
+  $("subjectSelect").innerHTML='<option value="all">全科目</option>'+ordered.map(x=>`<option value="${x}">${x}</option>`).join("");
 }
 function filteredQuestions(){
   const type=$("typeSelect").value;
   const subject=$("subjectSelect").value;
   const review=$("reviewSelect").value;
-  const source=$("sourceSelect").value;
+  const selectedSources=new Set([...document.querySelectorAll('input[name="sourceCategory"]:checked')].map(el=>el.value));
   const keyword=$("keywordInput").value.trim().toLowerCase();
   const favorites=getFavorites();
   const wrong=new Set(JSON.parse(localStorage.getItem("sharoshi-wrong")||"[]"));
@@ -112,7 +115,7 @@ function filteredQuestions(){
     ].filter(Boolean).join(" ").toLowerCase();
     return (type==="all"||q.type===type)&&
       (subject==="all"||q.subject===subject)&&
-      (source==="all"||q.sourceCategory===source)&&
+      (selectedSources.has(q.sourceCategory))&&
       (!keyword||searchable.includes(keyword))&&
       (review==="all"||review==="weak"||
        (review==="favorite"&&favorites.has(q.id))||
@@ -418,7 +421,7 @@ async function init(){
     state.allQuestions=window.SHAROSHI_QUESTIONS;
   }else{
     // 開発用サーバーで起動した場合の予備読み込み。
-    const response=await fetch("questions.json?v=40",{cache:"no-store"});
+    const response=await fetch("questions.json?v=50",{cache:"no-store"});
     if(!response.ok)throw new Error("question data load failed");
     state.allQuestions=await response.json();
   }
@@ -434,11 +437,11 @@ async function init(){
   if(localStorage.getItem("sharoshi-resume"))$("resumeButton").classList.remove("hidden");
 }
 
+
+$("sourceAllButton").onclick=()=>document.querySelectorAll('input[name="sourceCategory"]').forEach(el=>el.checked=true);
+$("sourceNoneButton").onclick=()=>document.querySelectorAll('input[name="sourceCategory"]').forEach(el=>el.checked=false);
+
 $("startButton").onclick=()=>beginSession();
-$("selectionDemoButton").onclick=()=>{
-  const demo=state.allQuestions.filter(q=>q.type==="fillBlank");
-  beginSession(demo);
-};
 $("resumeButton").onclick=resumeSession;
 $("trueButton").onclick=()=>answer(true);
 $("falseButton").onclick=()=>answer(false);
@@ -461,6 +464,6 @@ $("resetHistoryButton").onclick=()=>{
 };
 
 if("serviceWorker"in navigator&&location.protocol.startsWith("http")){
-  navigator.serviceWorker.register("sw.js?v=40",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{});
+  navigator.serviceWorker.register("sw.js?v=50",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{});
 }
 init().catch(()=>alert("問題データの読み込みに失敗しました。READMEを確認してください。"));
