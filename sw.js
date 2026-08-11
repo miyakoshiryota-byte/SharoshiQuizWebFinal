@@ -1,6 +1,6 @@
-const CACHE_NAME="sharoshi-v52-pdf-click-diagnostics";
+const CACHE_NAME="sharoshi-v53-pdf-click-hit-regions";
 const APP_FILES=[
-  "./","./index.html","./style.css?v=52","./app.js?v=51","./pdf-debug.js?v=52",
+  "./","./index.html","./style.css?v=53","./app.js?v=51","./pdf-debug.js?v=53",
   "./manifest.webmanifest?v=50","./questions-data.js?v=51",
   "./icon-180.png?v=50","./icon-512.png?v=50"
 ];

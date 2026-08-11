@@ -121,9 +121,15 @@
   }
   function viewportBox(entry,viewport){
     const m=window.pdfjsLib.Util.transform(viewport.transform,entry.transform);
-    const height=Math.max(1,Math.hypot(m[2],m[3]));
-    const width=Math.max(1,entry.width*viewport.scale);
-    return {left:m[4],top:m[5]-height,width,height};
+    const height=Math.max(8,Math.hypot(m[2],m[3]));
+    const advance=Math.max(8,Math.abs(entry.width*viewport.scale));
+    const angle=Math.atan2(m[1],m[0]);
+    const dx=Math.cos(angle)*advance,dy=Math.sin(angle)*advance;
+    const hx=-Math.sin(angle)*height,hy=Math.cos(angle)*height;
+    const points=[[m[4],m[5]],[m[4]+dx,m[5]+dy],[m[4]-hx,m[5]-hy],[m[4]+dx-hx,m[5]+dy-hy]];
+    const xs=points.map(point=>point[0]),ys=points.map(point=>point[1]);
+    const left=Math.min(...xs),top=Math.min(...ys),right=Math.max(...xs),bottom=Math.max(...ys);
+    return {left,top,width:Math.max(8,right-left),height:Math.max(8,bottom-top)};
   }
   function report(entries){
     const candidates=entries.filter(e=>e.category);
@@ -142,6 +148,20 @@
   function logBlackDiagnostic(entry){
     const diagnostic={text:entry.text,fontName:entry.fontName,fontFamily:entry.fontFamily,operatorFontName:entry.operatorFontName,loadedName:entry.loadedName,originalName:entry.originalName,fallbackName:entry.fallbackName,fontWeight:entry.fontWeight,bold:entry.bold,black:entry.black,fontSize:entry.fontSize,transform:entry.transform,width:entry.width,height:entry.height,glyphWidth:entry.glyphWidth,normalizedAdvance:entry.normalizedAdvance,charSpacing:entry.charSpacing,wordSpacing:entry.wordSpacing,horizontalScale:entry.horizontalScale,textRise:entry.textRise,renderingMode:entry.renderingMode,fillColor:colorText(entry.fillColor),strokeColor:colorText(entry.strokeColor),lineWidth:entry.lineWidth,samePositionCount:entry.samePositionCount,operatorIndex:entry.operatorIndex,isType3Font:entry.isType3Font,fontType:entry.fontType,fontSubtype:entry.fontSubtype};
     console.group(`黒文字クリック診断: ${JSON.stringify(entry.text)}`);console.table(diagnostic);console.log(diagnostic);console.groupEnd();
+  }
+  function registerBlackClick(hit,entry){
+    let lastPointerUp=0;
+    hit.addEventListener("pointerup",event=>{
+      if(event.pointerType==="mouse"&&event.button!==0)return;
+      lastPointerUp=Date.now();
+      console.log("BLACK TEXT CLICKED");
+      logBlackDiagnostic(entry);
+    });
+    hit.addEventListener("click",()=>{
+      if(Date.now()-lastPointerUp<500)return;
+      console.log("BLACK TEXT CLICKED");
+      logBlackDiagnostic(entry);
+    });
   }
   async function render(){
     if(!state.pdf)return;
@@ -163,14 +183,18 @@
       }
       for(const e of analysis.entries.filter(x=>x.colorType==="black"&&x.text.trim())){
         const box=viewportBox(e,viewport),hit=document.createElement("button");hit.type="button";hit.className="pdf-black-hit";hit.title=`黒文字を診断: ${e.text}`;hit.setAttribute("aria-label",`黒文字を診断: ${e.text}`);
-        Object.assign(hit.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`});hit.addEventListener("click",()=>logBlackDiagnostic(e));hitLayer.append(hit);
+        Object.assign(hit.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`});registerBlackClick(hit,e);hitLayer.append(hit);
       }
       state.pages.push({page,analysis,viewport});
     }
     report(all);$("pdfStatus").textContent=`${state.pdf.numPages}ページを解析しました。黒文字をクリックすると診断情報をConsoleに表示します。`;
     toggleOverlay();
   }
-  function toggleOverlay(){document.querySelectorAll(".pdf-debug-overlay").forEach(x=>x.hidden=!$("pdfDebugToggle").checked);}
+  function toggleOverlay(){
+    const enabled=$("pdfDebugToggle").checked;
+    document.querySelectorAll(".pdf-debug-overlay").forEach(layer=>{layer.hidden=!enabled;});
+    document.querySelectorAll(".pdf-diagnostic-layer").forEach(layer=>{layer.classList.toggle("diagnostic-visible",enabled);});
+  }
   async function load(event){
     const file=event.target.files?.[0];if(!file)return;
     $("pdfStatus").textContent="PDFを読み込み、描画命令とテキストを解析しています…";
