@@ -1,7 +1,7 @@
-const CACHE_NAME="sharoshi-v50-final";
+const CACHE_NAME="sharoshi-v51-pdf-lab";
 const APP_FILES=[
-  "./","./index.html","./style.css?v=50","./app.js?v=50",
-  "./manifest.webmanifest?v=50","./questions-data.js?v=50",
+  "./","./index.html","./style.css?v=51","./app.js?v=51","./pdf-debug.js?v=51",
+  "./manifest.webmanifest?v=50","./questions-data.js?v=51",
   "./icon-180.png?v=50","./icon-512.png?v=50"
 ];
 self.addEventListener("install",event=>{

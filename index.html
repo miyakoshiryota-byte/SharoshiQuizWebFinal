@@ -11,7 +11,7 @@
   <title>社労士 一問一答 v5.0</title>
   <link rel="apple-touch-icon" href="icon-180.png?v=50">
   <link rel="manifest" href="manifest.webmanifest?v=50">
-  <link rel="stylesheet" href="style.css?v=50">
+  <link rel="stylesheet" href="style.css?v=51">
 </head>
 <body>
 <main id="app">
@@ -104,6 +104,26 @@
       <div><strong id="accuracy">–</strong><span>正答率</span></div>
     </div>
 
+    <section class="pdf-lab history-card" aria-labelledby="pdfLabTitle">
+      <div class="section-title-row">
+        <div>
+          <p class="eyebrow">PDF TECHNICAL LAB</p>
+          <h2 id="pdfLabTitle">教材PDF 重要語句検出</h2>
+        </div>
+        <label class="debug-toggle"><input id="pdfDebugToggle" type="checkbox" checked> 検出枠</label>
+      </div>
+      <p class="helper-text">PDFは端末内でのみ解析します。赤・青文字と本文相当サイズの黒太字候補を検出し、座標を確認できます（暗記マスクは未実装）。</p>
+      <label class="pdf-file-button primary">PDFを選択
+        <input id="pdfInput" type="file" accept="application/pdf,.pdf">
+      </label>
+      <p id="pdfStatus" class="pdf-status" aria-live="polite">PDFを選択してください。</p>
+      <details id="pdfReportPanel" class="pdf-report-panel hidden">
+        <summary>解析結果</summary>
+        <pre id="pdfReport"></pre>
+      </details>
+      <div id="pdfViewer" class="pdf-viewer"></div>
+    </section>
+
     <section class="history-card">
       <div class="section-title-row">
         <div>
@@ -175,7 +195,9 @@
     </div>
   </section>
 </main>
-<script src="questions-data.js?v=50"></script>
-<script src="app.js?v=50"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="questions-data.js?v=51"></script>
+<script src="pdf-debug.js?v=51"></script>
+<script src="app.js?v=51"></script>
 </body>
 </html>
