@@ -1,6 +1,6 @@
-const CACHE_NAME="sharoshi-v51-pdf-lab";
+const CACHE_NAME="sharoshi-v52-pdf-inspect";
 const APP_FILES=[
-  "./","./index.html","./style.css?v=51","./app.js?v=51","./pdf-debug.js?v=51",
+  "./","./index.html","./style.css?v=52","./app.js?v=51","./pdf-debug.js?v=52",
   "./manifest.webmanifest?v=50","./questions-data.js?v=51",
   "./icon-180.png?v=50","./icon-512.png?v=50"
 ];

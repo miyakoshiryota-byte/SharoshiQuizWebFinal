@@ -170,7 +170,7 @@ select:focus,input[type="search"]:focus{outline:3px solid rgba(11,107,58,.13);bo
 @media(max-width:430px){.source-filter{grid-template-columns:1fr}.source-filter-head{align-items:flex-start;flex-direction:column}}
 
 /* PDF technical verification (debug overlay only; no answer masks). */
-.pdf-lab{display:grid;gap:14px}.debug-toggle{display:flex;align-items:center;gap:6px;margin:0;color:#475467;white-space:nowrap}
+.pdf-lab{display:grid;gap:14px}.pdf-debug-toggles{display:grid;gap:6px;justify-items:end}.debug-toggle{display:flex;align-items:center;gap:6px;margin:0;color:#475467;white-space:nowrap}
 .pdf-file-button{display:block;width:fit-content;padding:12px 18px;text-align:center;cursor:pointer}.pdf-file-button input{display:none}
 .pdf-status{margin:0;color:#475467;font-size:.9rem}.pdf-report-panel{border:1px solid #dce9e1;border-radius:12px;padding:10px 12px}
 .pdf-report-panel summary{cursor:pointer;font-weight:800}.pdf-report-panel pre{max-height:320px;overflow:auto;white-space:pre-wrap;font-size:12px;line-height:1.5}
@@ -178,3 +178,4 @@ select:focus,input[type="search"]:focus{outline:3px solid rgba(11,107,58,.13);bo
 .pdf-page{position:relative;flex:none;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.18)}.pdf-page canvas{position:absolute;inset:0;display:block}
 .pdf-debug-overlay{position:absolute;inset:0;pointer-events:none}.pdf-debug-box{position:absolute;border:1.5px solid;box-sizing:border-box;background:rgba(255,255,0,.08)}
 .pdf-debug-box.red{border-color:#ef4444;background:rgba(239,68,68,.12)}.pdf-debug-box.blue{border-color:#2563eb;background:rgba(37,99,235,.12)}.pdf-debug-box.blackBold{border-color:#f59e0b;background:rgba(245,158,11,.16)}
+.pdf-debug-overlay.black-inspect{pointer-events:auto}.pdf-black-inspect-hit{position:absolute;border:0;background:transparent;cursor:crosshair;padding:0}.pdf-black-inspect-hit:hover,.pdf-black-inspect-hit:focus{outline:1.5px dashed #f59e0b;background:rgba(245,158,11,.12)}

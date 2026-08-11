@@ -11,7 +11,7 @@
   <title>社労士 一問一答 v5.0</title>
   <link rel="apple-touch-icon" href="icon-180.png?v=50">
   <link rel="manifest" href="manifest.webmanifest?v=50">
-  <link rel="stylesheet" href="style.css?v=51">
+  <link rel="stylesheet" href="style.css?v=52">
 </head>
 <body>
 <main id="app">
@@ -110,9 +110,12 @@
           <p class="eyebrow">PDF TECHNICAL LAB</p>
           <h2 id="pdfLabTitle">教材PDF 重要語句検出</h2>
         </div>
-        <label class="debug-toggle"><input id="pdfDebugToggle" type="checkbox" checked> 検出枠</label>
+        <div class="pdf-debug-toggles">
+          <label class="debug-toggle"><input id="pdfDebugToggle" type="checkbox" checked> 検出枠</label>
+          <label class="debug-toggle"><input id="pdfBlackInspectToggle" type="checkbox"> 黒文字クリック診断</label>
+        </div>
       </div>
-      <p class="helper-text">PDFは端末内でのみ解析します。赤・青文字と本文相当サイズの黒太字候補を検出し、座標を確認できます（暗記マスクは未実装）。</p>
+      <p class="helper-text">PDFは端末内でのみ解析します。黒文字クリック診断を有効にすると、黒文字をクリックして内部情報をConsoleで比較できます（暗記マスクは未実装）。</p>
       <label class="pdf-file-button primary">PDFを選択
         <input id="pdfInput" type="file" accept="application/pdf,.pdf">
       </label>
@@ -197,7 +200,7 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="questions-data.js?v=51"></script>
-<script src="pdf-debug.js?v=51"></script>
+<script src="pdf-debug.js?v=52"></script>
 <script src="app.js?v=51"></script>
 </body>
 </html>
