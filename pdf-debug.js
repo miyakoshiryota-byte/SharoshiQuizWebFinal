@@ -25,7 +25,6 @@
     return value.map(g=>typeof g==="string"?g:(g&&typeof g.unicode==="string"?g.unicode:"")).join("");
   }
   const copyColor=c=>({...c});
-  const isStrokeMode=mode=>[1,2,5,6].includes(mode);
   function glyphWidth(value){
     if(!Array.isArray(value))return null;
     const widths=value.filter(g=>g&&typeof g==="object"&&Number.isFinite(g.width)).map(g=>g.width);
@@ -33,12 +32,12 @@
   }
   function operatorPaintRuns(list){
     const O=window.pdfjsLib.OPS,runs=[];
-    let fill=rgb(0,0,0),stroke=rgb(0,0,0),fontName="",fontSize=0,renderingMode=0,lineWidth=1;
+    let fill=rgb(0,0,0),stroke=rgb(0,0,0),fontName="",fontSize=0,renderingMode=0,lineWidth=1,charSpacing=0,wordSpacing=0,horizontalScale=100,textRise=0;
     const stack=[];
     for(let i=0;i<list.fnArray.length;i++){
       const op=list.fnArray[i],a=list.argsArray[i]||[];
-      if(op===O.save)stack.push({fill:copyColor(fill),stroke:copyColor(stroke),fontName,fontSize,renderingMode,lineWidth});
-      else if(op===O.restore&&stack.length)({fill,stroke,fontName,fontSize,renderingMode,lineWidth}=stack.pop());
+      if(op===O.save)stack.push({fill:copyColor(fill),stroke:copyColor(stroke),fontName,fontSize,renderingMode,lineWidth,charSpacing,wordSpacing,horizontalScale,textRise});
+      else if(op===O.restore&&stack.length)({fill,stroke,fontName,fontSize,renderingMode,lineWidth,charSpacing,wordSpacing,horizontalScale,textRise}=stack.pop());
       else if(op===O.setFillRGBColor)fill=rgb(a[0],a[1],a[2]);
       else if(op===O.setFillGray)fill=rgb(a[0],a[0],a[0]);
       else if(op===O.setFillCMYKColor)fill=cmyk(a[0],a[1],a[2],a[3]);
@@ -47,10 +46,14 @@
       else if(op===O.setStrokeCMYKColor)stroke=cmyk(a[0],a[1],a[2],a[3]);
       else if(op===O.setTextRenderingMode)renderingMode=Number(a[0])||0;
       else if(op===O.setLineWidth)lineWidth=Math.abs(Number(a[0]))||0;
+      else if(op===O.setCharSpacing)charSpacing=Number(a[0])||0;
+      else if(op===O.setWordSpacing)wordSpacing=Number(a[0])||0;
+      else if(op===O.setHScale)horizontalScale=Number(a[0])||0;
+      else if(op===O.setTextRise)textRise=Number(a[0])||0;
       else if(op===O.setFont){fontName=String(a[0]||"");fontSize=Math.abs(Number(a[1]))||0;}
       else if(op===O.showText||op===O.showSpacedText){
         const text=glyphText(a[0]);
-        if(text)runs.push({text,color:copyColor(fill),strokeColor:copyColor(stroke),fontName,fontSize,operatorIndex:i,renderingMode,lineWidth,glyphWidth:glyphWidth(a[0])});
+        if(text)runs.push({text,color:copyColor(fill),strokeColor:copyColor(stroke),fontName,fontSize,operatorIndex:i,renderingMode,lineWidth,glyphWidth:glyphWidth(a[0]),charSpacing,wordSpacing,horizontalScale,textRise});
       }
     }
     return runs;
@@ -61,7 +64,7 @@
       const wanted=item.str.replace(/\s/g,"");
       while(runIndex<runs.length&&offset>=runs[runIndex].text.replace(/\s/g,"").length){runIndex++;offset=0;}
       const run=runs[runIndex];
-      const result=run?{...run,color:copyColor(run.color),strokeColor:copyColor(run.strokeColor)}:{color:rgb(0,0,0),strokeColor:rgb(0,0,0),fontName:"",fontSize:0,operatorIndex:-1,text:"",renderingMode:0,lineWidth:0,glyphWidth:null};
+      const result=run?{...run,color:copyColor(run.color),strokeColor:copyColor(run.strokeColor)}:{color:rgb(0,0,0),strokeColor:rgb(0,0,0),fontName:"",fontSize:0,operatorIndex:-1,text:"",renderingMode:0,lineWidth:0,glyphWidth:null,charSpacing:0,wordSpacing:0,horizontalScale:100,textRise:0};
       let remaining=wanted.length;
       while(remaining>0&&runIndex<runs.length){
         const available=Math.max(0,runs[runIndex].text.replace(/\s/g,"").length-offset);
@@ -86,8 +89,9 @@
     const bold=Boolean(font.bold||properties.bold)||Number.parseInt(fontWeight,10)>=600||/(?:bold|semibold|demibold|heavy|black|太ゴ|中ゴ|角ゴ)/i.test([item.fontName,style.fontFamily,paint.fontName,loadedName,originalName,fallbackName,fontWeight].join(" "));
     const black=Boolean(font.black||properties.black)||/(?:^|[-_ ])black(?:$|[-_ ])/i.test([loadedName,originalName,fallbackName,fontWeight].join(" "));
     const isType3Font=Boolean(font.isType3Font??properties.isType3Font)||(font.type||properties.type)==="Type3";
-    const fontFormat=font.type||font.subtype||font.fontType||properties.type||properties.subtype||properties.fontType||"";
-    return {loadedName,originalName,fallbackName,fontWeight,bold,black,isType3Font,fontFormat};
+    const fontType=font.fontType||font.type||properties.fontType||properties.type||"";
+    const fontSubtype=font.subtype||properties.subtype||"";
+    return {loadedName,originalName,fallbackName,fontWeight,bold,black,isType3Font,fontType,fontSubtype};
   }
   async function analyzePage(page,pageNumber){
     const [text,ops]=await Promise.all([page.getTextContent(),page.getOperatorList()]);
@@ -100,8 +104,8 @@
       const details=fontDetails(page,item,style,paint);
       const colorType=classifyColor(paint.color);
       const bodySized=bodySize===0||(size>=bodySize*.72&&size<=bodySize*1.35);
-      const strokeBold=isStrokeMode(paint.renderingMode)&&classifyColor(paint.strokeColor)==="black"&&paint.lineWidth>0;
-      return {text:item.str,pageNumber,x:item.transform[4],y:item.transform[5],width:item.width,height:item.height,fontName:item.fontName,fontFamily:style.fontFamily||"",operatorFontName:paint.fontName,fontSize:size,color:paint.color,strokeColor:paint.strokeColor,colorType,category:null,bodySized,bodySize,operatorIndex:paint.operatorIndex,renderingMode:paint.renderingMode,lineWidth:paint.lineWidth,glyphWidth:paint.glyphWidth,samePositionDrawCount:1,boldEvidence:details.bold||details.black?["font metadata"]:strokeBold?["stroke rendering"]:[],strokeBold,...details,transform:item.transform};
+      const normalizedAdvance=size?item.width/size:null;
+      return {text:item.str,pageNumber,x:item.transform[4],y:item.transform[5],width:item.width,height:item.height,fontName:item.fontName,fontFamily:style.fontFamily||"",operatorFontName:paint.fontName,fontSize:size,fillColor:paint.color,strokeColor:paint.strokeColor,colorType,category:colorType==="red"?"red":colorType==="blue"?"blue":null,bodySized,bodySize,operatorIndex:paint.operatorIndex,renderingMode:paint.renderingMode,lineWidth:paint.lineWidth,glyphWidth:paint.glyphWidth,normalizedAdvance,charSpacing:paint.charSpacing,wordSpacing:paint.wordSpacing,horizontalScale:paint.horizontalScale,textRise:paint.textRise,samePositionCount:1,...details,transform:item.transform};
     });
     const positions=new Map();
     for(const entry of entries){
@@ -111,11 +115,7 @@
     }
     for(const entry of entries){
       const key=[entry.text,entry.x.toFixed(2),entry.y.toFixed(2),entry.fontSize.toFixed(2)].join("|");
-      entry.samePositionDrawCount=positions.get(key)||1;
-      if(entry.samePositionDrawCount>1)entry.boldEvidence.push("same-position draw");
-      const hasBoldEvidence=entry.boldEvidence.length>0;
-      const blackPaint=entry.colorType==="black"||entry.strokeBold;
-      entry.category=entry.colorType==="red"?"red":entry.colorType==="blue"?"blue":(blackPaint&&entry.bodySized&&hasBoldEvidence?"blackBold":null);
+      entry.samePositionCount=positions.get(key)||1;
     }
     return {entries,bodySize};
   }
@@ -128,20 +128,20 @@
   function report(entries){
     const candidates=entries.filter(e=>e.category);
     const counts=t=>candidates.filter(e=>e.category===t).length;
-    const lines=[`解析対象: ${entries.length} テキスト項目`,`赤: ${counts("red")} / 青: ${counts("blue")} / 黒太字（本文相当）: ${counts("blackBold")}`,""];
+    const lines=[`解析対象: ${entries.length} テキスト項目`,`赤: ${counts("red")} / 青: ${counts("blue")}`,""];
     for(const e of candidates){
-      lines.push(`${{red:"赤文字",blue:"青文字",blackBold:"黒太字"}[e.category]}候補: ${JSON.stringify(e.text)}`,
+      lines.push(`${{red:"赤文字",blue:"青文字"}[e.category]}候補: ${JSON.stringify(e.text)}`,
         `page=${e.pageNumber} x=${e.x.toFixed(2)} y=${e.y.toFixed(2)} width=${e.width.toFixed(2)} height=${e.height.toFixed(2)}`,
         `font=${e.fontName}${e.fontFamily?` (${e.fontFamily})`:""} operatorFont=${e.operatorFontName} size=${e.fontSize.toFixed(2)} bold=${e.bold}`,
-        `color=${colorText(e.color)} stroke=${colorText(e.strokeColor)} operatorIndex=${e.operatorIndex} mode=${e.renderingMode}`,
-        `boldEvidence=${e.boldEvidence.join(", ")||"none"} samePosition=${e.samePositionDrawCount} glyphWidth=${e.glyphWidth??"unknown"}`,"");
+        `color=${colorText(e.fillColor)} stroke=${colorText(e.strokeColor)} operatorIndex=${e.operatorIndex} mode=${e.renderingMode}`,"");
     }
     $("pdfReport").textContent=lines.join("\n");
     $("pdfReportPanel").classList.remove("hidden");
-    const blackBold=entries.filter(e=>e.category==="blackBold");
-    const normalBlack=entries.filter(e=>e.colorType==="black"&&!e.category&&e.bodySized).slice(0,30);
-    const blackFonts=[...new Map(entries.filter(e=>e.colorType==="black").map(e=>[[e.fontName,e.operatorFontName,e.loadedName,e.originalName].join("|"),{fontName:e.fontName,fontFamily:e.fontFamily,operatorFontName:e.operatorFontName,loadedName:e.loadedName,originalName:e.originalName,fallbackName:e.fallbackName,fontWeight:e.fontWeight,bold:e.bold,black:e.black,isType3Font:e.isType3Font,fontFormat:e.fontFormat}])).values()];
-    console.group("PDF重要語句 技術検証");console.log(lines.join("\n"));console.group("黒太字候補");console.table(blackBold);console.groupEnd();console.group("通常黒文字（比較サンプル・最大30件）");console.table(normalBlack);console.groupEnd();console.group("黒文字フォント一覧");console.table(blackFonts);console.groupEnd();console.groupEnd();
+    console.group("PDF重要語句 技術検証");console.log(lines.join("\n"));console.groupEnd();
+  }
+  function logBlackDiagnostic(entry){
+    const diagnostic={text:entry.text,fontName:entry.fontName,fontFamily:entry.fontFamily,operatorFontName:entry.operatorFontName,loadedName:entry.loadedName,originalName:entry.originalName,fallbackName:entry.fallbackName,fontWeight:entry.fontWeight,bold:entry.bold,black:entry.black,fontSize:entry.fontSize,transform:entry.transform,width:entry.width,height:entry.height,glyphWidth:entry.glyphWidth,normalizedAdvance:entry.normalizedAdvance,charSpacing:entry.charSpacing,wordSpacing:entry.wordSpacing,horizontalScale:entry.horizontalScale,textRise:entry.textRise,renderingMode:entry.renderingMode,fillColor:colorText(entry.fillColor),strokeColor:colorText(entry.strokeColor),lineWidth:entry.lineWidth,samePositionCount:entry.samePositionCount,operatorIndex:entry.operatorIndex,isType3Font:entry.isType3Font,fontType:entry.fontType,fontSubtype:entry.fontSubtype};
+    console.group(`黒文字クリック診断: ${JSON.stringify(entry.text)}`);console.table(diagnostic);console.log(diagnostic);console.groupEnd();
   }
   async function render(){
     if(!state.pdf)return;
@@ -152,18 +152,22 @@
       if(token!==state.renderToken)return;
       const page=await state.pdf.getPage(n),base=page.getViewport({scale:1}),scale=available/base.width,viewport=page.getViewport({scale});
       const wrap=document.createElement("section");wrap.className="pdf-page";wrap.style.width=`${viewport.width}px`;wrap.style.height=`${viewport.height}px`;
-      const canvas=document.createElement("canvas"),overlay=document.createElement("div");overlay.className="pdf-debug-overlay";
+      const canvas=document.createElement("canvas"),overlay=document.createElement("div"),hitLayer=document.createElement("div");overlay.className="pdf-debug-overlay";hitLayer.className="pdf-diagnostic-layer";
       const ratio=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.floor(viewport.width*ratio);canvas.height=Math.floor(viewport.height*ratio);canvas.style.width=`${viewport.width}px`;canvas.style.height=`${viewport.height}px`;
-      wrap.append(canvas,overlay);viewer.append(wrap);
+      wrap.append(canvas,overlay,hitLayer);viewer.append(wrap);
       await page.render({canvasContext:canvas.getContext("2d"),viewport,transform:ratio===1?null:[ratio,0,0,ratio,0,0]}).promise;
       const analysis=await analyzePage(page,n);all=all.concat(analysis.entries);
       for(const e of analysis.entries.filter(x=>x.category)){
-        const box=viewportBox(e,viewport),mark=document.createElement("span");mark.className=`pdf-debug-box ${e.category}`;mark.title=`${e.text} | ${colorText(e.color)} | ${e.fontName}`;
+        const box=viewportBox(e,viewport),mark=document.createElement("span");mark.className=`pdf-debug-box ${e.category}`;mark.title=`${e.text} | ${colorText(e.fillColor)} | ${e.fontName}`;
         Object.assign(mark.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`});overlay.append(mark);
+      }
+      for(const e of analysis.entries.filter(x=>x.colorType==="black"&&x.text.trim())){
+        const box=viewportBox(e,viewport),hit=document.createElement("button");hit.type="button";hit.className="pdf-black-hit";hit.title=`黒文字を診断: ${e.text}`;hit.setAttribute("aria-label",`黒文字を診断: ${e.text}`);
+        Object.assign(hit.style,{left:`${box.left}px`,top:`${box.top}px`,width:`${box.width}px`,height:`${box.height}px`});hit.addEventListener("click",()=>logBlackDiagnostic(e));hitLayer.append(hit);
       }
       state.pages.push({page,analysis,viewport});
     }
-    report(all);$("pdfStatus").textContent=`${state.pdf.numPages}ページを解析しました。色値・フォント・座標は解析結果とconsoleで確認できます。`;
+    report(all);$("pdfStatus").textContent=`${state.pdf.numPages}ページを解析しました。黒文字をクリックすると診断情報をConsoleに表示します。`;
     toggleOverlay();
   }
   function toggleOverlay(){document.querySelectorAll(".pdf-debug-overlay").forEach(x=>x.hidden=!$("pdfDebugToggle").checked);}

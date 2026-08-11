@@ -177,4 +177,5 @@ select:focus,input[type="search"]:focus{outline:3px solid rgba(11,107,58,.13);bo
 .pdf-viewer{display:grid;gap:18px;justify-items:center;max-width:100%;overflow:auto;background:#e5e7eb;border-radius:14px}
 .pdf-page{position:relative;flex:none;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.18)}.pdf-page canvas{position:absolute;inset:0;display:block}
 .pdf-debug-overlay{position:absolute;inset:0;pointer-events:none}.pdf-debug-box{position:absolute;border:1.5px solid;box-sizing:border-box;background:rgba(255,255,0,.08)}
-.pdf-debug-box.red{border-color:#ef4444;background:rgba(239,68,68,.12)}.pdf-debug-box.blue{border-color:#2563eb;background:rgba(37,99,235,.12)}.pdf-debug-box.blackBold{border-color:#f59e0b;background:rgba(245,158,11,.16)}
+.pdf-debug-box.red{border-color:#ef4444;background:rgba(239,68,68,.12)}.pdf-debug-box.blue{border-color:#2563eb;background:rgba(37,99,235,.12)}
+.pdf-diagnostic-layer{position:absolute;inset:0}.pdf-black-hit{position:absolute;margin:0;padding:0;border:0;background:transparent;cursor:crosshair}.pdf-black-hit:hover,.pdf-black-hit:focus-visible{outline:1.5px dashed #f59e0b;background:rgba(245,158,11,.12)}
